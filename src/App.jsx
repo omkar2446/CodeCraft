@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import heroVideo from '../video/Minecraft Autumn Mountains _ Cozy 4K Live Wallpaper 🍂🏔️.mp4';
 import logoImage from '../photo/CODECRAFT LOGO.png';
+import omkarPhoto from '../photo/omkar.jpg';
+import member2Photo from '../photo/member2.jpg';
+import member3Photo from '../photo/member3.png';
+import member4Photo from '../photo/member4.png';
+import member5Photo from '../photo/member5.png';
+import member6Photo from '../photo/member6.png';
 import buttonSound from '../sound/videoplayback.m4a';
 import backgroundMusic from '../sound/Minecraft.mp3.mpeg';
 
-const menuItems = ['Registration', 'Schedule', 'Topics'];
+const menuItems = ['Registration', 'Schedule', 'Themes'];
 const splitMenuItems = ['Perks', 'FAQs'];
 
 const journeyStages = [
@@ -98,12 +104,12 @@ const eligibilityCards = [
 ];
 
 const organizingTeam = [
-  { name: 'Tambe Omkar', role: 'Organizer', phone: '9405909432' },
-  { name: 'Tambe Yash', role: 'Organizer', phone: ' 84689 88834' },
-  { name: 'Pandharkar Aniruddha', role: 'Organizer', phone: '87999 48910' },
-  { name: 'Darekar Sainath', role: 'Organizer', phone: ' 93072 92907' },
-  { name: 'Wabale Shreya', role: 'Organizer', phone: '84219 05078' },
-  { name: 'Kale Shrushti', role: 'Organizer', phone: '94225 10744' },
+  { name: 'Tambe Omkar', role: 'Organizer', phone: '9405909432', image: omkarPhoto },
+  { name: 'Tambe Yash', role: 'Organizer', phone: '84689 88834', image: member2Photo },
+  { name: 'Pandharkar Aniruddha', role: 'Organizer', phone: '87999 48910', image: member3Photo },
+  { name: 'Darekar Sainath', role: 'Organizer', phone: '93072 92907', image: member4Photo },
+  { name: 'Wabale Shreya', role: 'Organizer', phone: '84219 05078', image: member5Photo },
+  { name: 'Kale Shrushti', role: 'Organizer', phone: '94225 10744', image: member6Photo },
 ];
 
 const registrationDeadline = new Date('2026-10-01T23:59:59');
@@ -135,8 +141,8 @@ const menuInformation = {
     action: 'View full schedule',
     
   },
-  Topics: {
-    title: 'Topics',
+  Themes: {
+    title: 'Themes',
     text: 'Choose a problem area where technology can create measurable real-world impact.',
     items: ['AgriTech', 'Climate Intelligence', 'Emergency Management', 'Open innovation ideas are welcome'],
     
@@ -263,7 +269,7 @@ function App() {
               ×
             </button>
             <div className="organizers-page-heading">
-              <span className="eyebrow">CodeCraft Community</span>
+              <span className="eyebrow">CodeCraft committee</span>
               <h1 id="organizers-title">Organizing Team</h1>
               <a className="organizers-instagram" href="https://www.instagram.com/codecraft.prec/" target="_blank" rel="noreferrer">
                 Follow us on Instagram
@@ -272,7 +278,9 @@ function App() {
             <div className="organizers-page-grid">
               {organizingTeam.map((member) => (
                 <article key={member.name} className="organizer-page-card">
-                  <div className="organizer-avatar">{member.name.slice(0, 1)}</div>
+                  <div className="organizer-avatar">
+                    <img src={member.image} alt={`${member.name} organizer`} />
+                  </div>
                   <h2>{member.name}</h2>
                   <span>{member.role}</span>
                   <small>Contact</small>
