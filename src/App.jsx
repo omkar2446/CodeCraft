@@ -98,12 +98,12 @@ const eligibilityCards = [
 ];
 
 const organizingTeam = [
-  { name: 'Omkar', role: 'Organizer', phone: '9405909432' },
-  { name: 'Team Member 02', role: 'Organizer', phone: '[Add phone]' },
-  { name: 'Team Member 03', role: 'Organizer', phone: '[Add phone]' },
-  { name: 'Team Member 04', role: 'Organizer', phone: '[Add phone]' },
-  { name: 'Team Member 05', role: 'Organizer', phone: '[Add phone]' },
-  { name: 'Team Member 06', role: 'Organizer', phone: '[Add phone]' },
+  { name: 'Tambe Omkar', role: 'Organizer', phone: '9405909432' },
+  { name: 'Tambe Yash', role: 'Organizer', phone: ' 84689 88834' },
+  { name: 'Pandharkar Aniruddha', role: 'Organizer', phone: '87999 48910' },
+  { name: 'Darekar Sainath', role: 'Organizer', phone: ' 93072 92907' },
+  { name: 'Wabale Shreya', role: 'Organizer', phone: '84219 05078' },
+  { name: 'Kale Shrushti', role: 'Organizer', phone: '94225 10744' },
 ];
 
 const registrationDeadline = new Date('2026-10-01T23:59:59');
