@@ -795,6 +795,21 @@ a {
   text-transform: uppercase;
 }
 
+.organizers-page-heading .eyebrow {
+  margin-bottom: 10px;
+  color: #7b291f;
+}
+
+.organizers-instagram {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 9px 13px;
+  border: 1px solid rgba(112, 67, 34, 0.35);
+  background: rgba(255, 255, 240, 0.52);
+  text-decoration: none;
+}
+
 .organizers-page-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(180px, 1fr));
@@ -836,9 +851,22 @@ a {
   font-size: 0.48rem;
 }
 
+.organizer-page-card small {
+  margin-top: 5px;
+  color: #9a2920;
+  font-size: 0.4rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .organizer-page-card a {
   color: #7b291f;
   text-decoration: none;
+}
+
+.organizer-page-card .placeholder-contact {
+  color: #8f765f;
+  font-style: italic;
 }
 
 .popup-backdrop {

@@ -263,10 +263,11 @@ function App() {
               ×
             </button>
             <div className="organizers-page-heading">
-              
+              <span className="eyebrow">CodeCraft Community</span>
               <h1 id="organizers-title">Organizing Team</h1>
-              <p>Meet the people helping build and run the CodeCraft hackathon.</p>
-              <a href="https://instagram.com/" target="_blank" rel="noreferrer">Follow us on Instagram</a>
+              <a className="organizers-instagram" href="https://www.instagram.com/codecraft.prec/" target="_blank" rel="noreferrer">
+                Follow us on Instagram
+              </a>
             </div>
             <div className="organizers-page-grid">
               {organizingTeam.map((member) => (
@@ -274,7 +275,8 @@ function App() {
                   <div className="organizer-avatar">{member.name.slice(0, 1)}</div>
                   <h2>{member.name}</h2>
                   <span>{member.role}</span>
-                  <a href={member.phone.startsWith('[') ? undefined : `tel:${member.phone}`}>
+                  <small>Contact</small>
+                  <a className={member.phone.startsWith('[') ? 'placeholder-contact' : ''} href={member.phone.startsWith('[') ? undefined : `tel:${member.phone}`}>
                     {member.phone}
                   </a>
                 </article>
