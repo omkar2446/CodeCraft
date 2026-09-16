@@ -735,15 +735,15 @@ a {
   position: relative;
   overflow: hidden;
   min-height: calc(100svh - 150px);
-  padding: 28px 0 36px;
+  padding: 82px 54px 48px 72px;
   color: #271b13;
 }
 
 .organizers-page::before {
   content: '';
   position: absolute;
-  inset: 74px 0 24px;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
   background:
     linear-gradient(rgba(255, 254, 240, 0.95), rgba(247, 244, 218, 0.97)),
     repeating-linear-gradient(0deg, rgba(121, 82, 35, 0.06) 0 1px, transparent 1px 4px);
@@ -755,23 +755,26 @@ a {
 .organizers-page::after {
   content: '';
   position: absolute;
-  top: 88px;
-  bottom: 38px;
+  top: 22px;
+  bottom: 22px;
   left: 27px;
-  z-index: -1;
+  z-index: 1;
   width: 3px;
   background: repeating-linear-gradient(to bottom, #9a2920 0 12px, transparent 12px 19px);
 }
 
 .organizers-back {
   position: absolute;
-  top: 92px;
-  right: 18px;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
 }
 
 .organizers-page-heading {
+  position: relative;
+  z-index: 2;
   max-width: 680px;
-  margin: 44px auto 28px;
+  margin: 0 auto 34px;
   text-align: center;
 }
 
@@ -811,6 +814,8 @@ a {
 }
 
 .organizers-page-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(180px, 1fr));
   gap: 18px;
@@ -1375,11 +1380,12 @@ a {
   }
 
   .organizers-page {
-    padding-top: 18px;
+    min-height: calc(100svh - 110px);
+    padding: 70px 24px 32px 42px;
   }
 
   .organizers-page-heading {
-    margin: 30px auto 22px;
+    margin: 0 auto 22px;
   }
 
   .organizers-page-heading p,
@@ -1582,13 +1588,13 @@ a {
   }
 
   .organizers-page::before {
-    inset: 60px 0 14px;
+    inset: 0;
     border-width: 7px;
   }
 
   .organizers-page::after {
-    top: 73px;
-    bottom: 27px;
+    top: 18px;
+    bottom: 18px;
     left: 21px;
   }
 
