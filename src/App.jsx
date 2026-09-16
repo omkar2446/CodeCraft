@@ -89,12 +89,12 @@ const resourceCards = [
 ];
 
 const timeline = [
-  { phase: 'ROUND 1', range: '18 to 28 September', detail: 'Idea Submission' },
-  { phase: 'ROUND 1 RESULT', range: '30 September', detail: 'Shortlisted Teams Announced' },
-  { phase: 'ROUND 2', range: '1 to 9 October', detail: 'Prototype Submission' },
-  { phase: 'ROUND 2 RESULT', range: '12 October', detail: 'Finalists Announced' },
-  { phase: 'ROUND 3', range: '16 and 17 October', detail: '24-Hour Grand Finale' },
-  { phase: 'ROUND 3 RESULT', range: '17 October', detail: 'Winners Announced' },
+  { phase: 'ROUND 1', range: '18 to 28 Sept', detail: 'Idea Submission' },
+  { phase: 'ROUND 1 RESULT', range: '30 Sept', detail: 'Shortlisted Teams Announced' },
+  { phase: 'ROUND 2', range: '1 to 9 Oct', detail: 'Prototype Submission' },
+  { phase: 'ROUND 2 RESULT', range: '12 Oct', detail: 'Finalists Announced' },
+  { phase: 'ROUND 3', range: '16 and 17 Oct', detail: '24-Hour Grand Finale' },
+  { phase: 'ROUND 3 RESULT', range: '17 Oct', detail: 'Winners Announced' },
 ];
 
 const eligibilityCards = [
@@ -137,7 +137,7 @@ const menuInformation = {
   Schedule: {
     title: 'Schedule',
     text: 'CodeCraft moves through three rounds, taking teams from their first idea to a live 24-hour grand finale.',
-    items: ['Round 1: 18th - 28th September, idea submission', 'Round 1 results: 30th September', 'Round 2: 1st - 9th October, prototype submission', 'Round 3: 16th - 17th October, grand finale'],
+    items: ['Round 1: 18th - 28th Sept, idea submission', 'Round 1 results: 30th Sept', 'Round 2: 1st - 9th Oct, prototype submission', 'Round 3: 16th - 17th Oct, grand finale'],
     action: 'View full schedule',
     
   },
@@ -362,7 +362,7 @@ function App() {
                       <span>{item.phase}</span>
                       <strong>{item.range}</strong>
                       <small>{item.detail}</small>
-                      {item.phase.includes('RESULT') && <em>Result announcement</em>}
+                      {item.phase.includes('RESULT') }
                     </div>
                   </div>
                 ))}
