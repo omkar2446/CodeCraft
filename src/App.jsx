@@ -259,11 +259,11 @@ function App() {
       <main className="content-wrapper">
         {organizersOpen ? (
           <section className="organizers-page" aria-labelledby="organizers-title">
-            <button className="organizers-back" type="button" onClick={() => { playButtonSound(); setOrganizersOpen(false); }}>
-              Back to home
+            <button className="organizers-back popup-close" type="button" aria-label="Close organizing team page" title="Back to home" onClick={() => { playButtonSound(); setOrganizersOpen(false); }}>
+              ×
             </button>
             <div className="organizers-page-heading">
-              <span className="eyebrow">CodeCraft Community</span>
+              
               <h1 id="organizers-title">Organizing Team</h1>
               <p>Meet the people helping build and run the CodeCraft hackathon.</p>
               <a href="https://instagram.com/" target="_blank" rel="noreferrer">Follow us on Instagram</a>

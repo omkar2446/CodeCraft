@@ -764,13 +764,9 @@ a {
 }
 
 .organizers-back {
-  min-height: 44px;
-  padding: 11px 15px;
-  border: 2px solid #5d351d;
-  background: #8a5a35;
-  color: #fffde9;
-  font-size: 0.5rem;
-  text-transform: uppercase;
+  position: absolute;
+  top: 92px;
+  right: 18px;
 }
 
 .organizers-page-heading {
@@ -1566,11 +1562,6 @@ a {
     top: 73px;
     bottom: 27px;
     left: 21px;
-  }
-
-  .organizers-back {
-    min-height: 42px;
-    font-size: 0.44rem;
   }
 
   .organizer-page-card h2 {
