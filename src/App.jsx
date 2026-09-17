@@ -58,18 +58,33 @@ const journeyStages = [
 const domains = [
   {
     icon: '🌾',
-    title: 'AgriTech',
-    text: 'Technology-driven solutions for agriculture, farming efficiency, food systems, and rural innovation.',
+    title: 'Climate and Agriculture',
+    text: 'Technology-driven solutions for climate resilience, agriculture, farming efficiency, and food systems.',
   },
   {
-    icon: '🌍',
-    title: 'Climate Intelligence',
-    text: 'Solutions using technology, data, AI, and intelligence to address climate-related challenges.',
+    icon: '🤖',
+    title: 'Artificial Intelligence and Agentic AI',
+    text: 'Intelligent systems, autonomous agents, machine learning, and AI-powered innovation.',
   },
   {
-    icon: '🚨',
-    title: 'Emergency Management',
-    text: 'Technology solutions for disaster preparedness, emergency response, crisis management, and public safety.',
+    icon: '🩺',
+    title: 'Medical and Healthcare',
+    text: 'Technology solutions that improve healthcare access, diagnosis, treatment, and patient outcomes.',
+  },
+  {
+    icon: '📚',
+    title: 'EdTech and Accessibility',
+    text: 'Inclusive learning tools and accessible experiences for students, educators, and communities.',
+  },
+  {
+    icon: '☁️',
+    title: 'Cloud Computing',
+    text: 'Scalable cloud platforms, infrastructure, distributed systems, and connected services.',
+  },
+  {
+    icon: '💡',
+    title: 'Open Innovation',
+    text: 'Original ideas that address meaningful challenges beyond the listed domain areas.',
   },
 ];
 
@@ -143,15 +158,22 @@ const menuInformation = {
   },
   Themes: {
     title: 'Themes',
-    text: 'Choose a problem area where technology can create measurable real-world impact.',
-    items: ['AgriTech', 'Climate Intelligence', 'Emergency Management', 'Open innovation ideas are welcome'],
+    text: 'Choose a theme where technology can create measurable real-world impact.',
+    items: [
+      'Climate and Agriculture',
+      'Artificial Intelligence and Agentic AI',
+      'Medical and Healthcare',
+      'EdTech and Accessibility',
+      'Cloud Computing',
+      'Open Innovation',
+    ],
     
    
   },
   Perks: {
     title: 'Perks',
     text: 'Participants get more than a competition: build your portfolio, meet experts, and take your idea further.',
-    items: ['₹37,000 total prize pool', 'Mentorship opportunities', 'Industry networking', 'Recognition and certificates'],
+    items: ['₹30,000 total prize pool', 'Mentorship opportunities', 'Industry networking', 'Recognition and certificates'],
    
     
   },
@@ -167,10 +189,12 @@ const menuInformation = {
     action: 'Read details',
     href: '#eligibility',
   },
-  Language: {
-    title: 'Language',
-    text: 'Choose your preferred language for the event experience.',
-    items: ['English - selected', 'Hindi - coming soon', 'Regional languages - coming soon'],
+  Location: {
+    title: 'Location',
+    text: 'Pravara Rural Engineering College (PREC), Loni',
+    items: ['A/P Loni Bk', 'Taluka Rahata', 'District Ahmednagar, Maharashtra', 'PIN 413736'],
+    action: 'Open in Google Maps',
+    href: 'https://maps.app.goo.gl/Uk2bmMXSWjg9ktLo9',
   },
 };
 
@@ -311,9 +335,9 @@ function App() {
                   ))}
                 </div>
 
-                <button className="mc-button full lang" type="button" aria-label="Language selector" onClick={() => { playButtonSound(); openPopup('Language'); }}>
+                <button className="mc-button full lang" type="button" aria-label="View location" onClick={() => { playButtonSound(); openPopup('Location'); }}>
                   <span className="title">
-                    <img src="https://i.ibb.co/99187Lk/lang.png" alt="Language" />
+                    <span className="location-menu-icon" aria-hidden="true">⌖</span>
                   </span>
                 </button>
               </div>
@@ -342,6 +366,18 @@ function App() {
             <span className="eyebrow">CodeCraft Information</span>
             <h2 id="popup-title">{activePopup.title}</h2>
             <p>{activePopup.text}</p>
+            {activePopup.title === 'Location' && (
+              <div className="location-map" aria-label="Map showing the PREC Loni location">
+                <span className="map-road map-road-one" />
+                <span className="map-road map-road-two" />
+                <span className="map-road map-road-three" />
+                <span className="map-block map-block-one" />
+                <span className="map-block map-block-two" />
+                <span className="map-block map-block-three" />
+                <span className="map-pin" aria-hidden="true">●</span>
+                <span className="map-label">PREC LONI</span>
+              </div>
+            )}
             {activePopup.title === 'Registration' && (
               <div className="countdown-panel" aria-label="Registration countdown">
                 <span>Registration closes in</span>
@@ -371,11 +407,11 @@ function App() {
               <div className="winner-list" aria-label="Hackathon winners and prizes">
                 <div className="winner-row first-place">
                   <span className="winner-medal">1st</span>
-                  <div><strong>First Prize</strong><small>₹21,000</small></div>
+                  <div><strong>First Prize</strong><small>₹15,000</small></div>
                 </div>
                 <div className="winner-row second-place">
                   <span className="winner-medal">2nd</span>
-                  <div><strong>Second Prize</strong><small>₹11,000</small></div>
+                  <div><strong>Second Prize</strong><small>₹10,000</small></div>
                 </div>
                 <div className="winner-row third-place">
                   <span className="winner-medal">3rd</span>
