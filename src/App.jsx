@@ -270,13 +270,13 @@ function App() {
             </button>
             <div className="organizers-page-heading">
               <span className="eyebrow">CodeCraft committee</span>
-              <h1 id="organizers-title">Organizing Team</h1>
+              <h1 id="organizers-title">CodeCraft Committee</h1>
               <a className="organizers-instagram" href="https://www.instagram.com/codecraft.prec/" target="_blank" rel="noreferrer">
                 Follow us on Instagram
               </a>
             </div>
             <div className="organizers-page-grid">
-              {organizingTeam.map((member) => (
+              {organizingTeam.map((member) => (     
                 <article key={member.name} className="organizer-page-card">
                   <div className="organizer-avatar">
                     <img src={member.image} alt={`${member.name} organizer`} />
@@ -365,7 +365,7 @@ function App() {
                       {item.phase.includes('RESULT') }
                     </div>
                   </div>
-                ))}
+                ))}*-0
               </div>
             ) : activePopup.title === 'Perks' ? (
               <div className="winner-list" aria-label="Hackathon winners and prizes">
