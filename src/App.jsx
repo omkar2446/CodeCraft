@@ -147,7 +147,7 @@ const menuInformation = {
     text: 'Register your team to participate in CodeCraft. Complete the form before the registration deadline and keep your team details ready.',
     items: ['Team registration', 'Problem statement selection', 'Submission instructions', 'Confirmation after signup'],
     action: 'Register on Unstop',
-    href: 'https://unstop.com/',
+    href: 'https://unstop.com/o/j76vyro?lb=Kz3Wkd7a&utm_medium=Share&utm_source=anirupan74889&utm_campaign=Competitions',
   },
   Schedule: {
     title: 'Schedule',
