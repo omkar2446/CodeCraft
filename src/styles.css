@@ -1425,7 +1425,7 @@ a {
 
 @media (max-width: 640px) {
   :root {
-    --btn-size: 24pt;
+    --btn-size: 38px;
   }
 
   .top-header {
@@ -1472,10 +1472,16 @@ a {
   }
 
   .mc-menu {
+    width: min(100%, 300px);
+    grid-template-columns: 38px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: repeat(3, var(--btn-size)) var(--btn-size);
+    grid-template-areas:
+      '. first first'
+      '. second second'
+      '. third third'
+      'lang fourth fourth';
     gap: 12px;
-    transform: scale(0.86);
-    transform-origin: top center;
-    margin-bottom: -30px;
+    margin-bottom: 0;
   }
 
   .double {
@@ -1483,15 +1489,22 @@ a {
   }
 
   .organizer-menu-button {
-    width: calc(var(--btn-size) * 10);
-    transform: scale(0.86);
-    transform-origin: top center;
+    width: min(250px, calc(100% - 50px));
+    align-self: flex-start;
     margin-top: 14px;
-    margin-bottom: -8px;
+    margin-left: max(50px, calc((100% - 300px) / 2 + 50px));
+    margin-right: 0;
+    margin-bottom: 0;
   }
 
   .mc-button {
-    min-height: 44px;
+    min-height: var(--btn-size);
+  }
+
+  .mc-menu > .mc-button,
+  .double,
+  .mc-button.lang {
+    width: 100%;
   }
 
   .metrics-panel,
@@ -1695,17 +1708,11 @@ a {
 
 @media (max-width: 360px) {
   :root {
-    --btn-size: 21pt;
+    --btn-size: 36px;
   }
 
   .mc-menu {
-    transform: scale(0.8);
-    margin-bottom: -52px;
-  }
-
-  .organizer-menu-button {
-    transform: scale(0.8);
-    margin-bottom: -14px;
+    gap: 10px;
   }
 
   .brand-logo {
