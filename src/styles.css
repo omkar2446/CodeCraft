@@ -1426,6 +1426,7 @@ a {
 @media (max-width: 640px) {
   :root {
     --btn-size: 38px;
+    --mobile-action-width: 250px;
   }
 
   .top-header {
@@ -1456,6 +1457,7 @@ a {
 
   .hero-section {
     flex: none;
+    align-items: flex-start;
     min-height: calc(100svh - 150px);
     padding-top: 14px;
     padding-bottom: 18px;
@@ -1463,12 +1465,15 @@ a {
 
   .menu-wrap {
     transform: none;
-    width: 100%;
+    width: min(100%, 300px);
     margin-top: 18px;
   }
 
   .brand-logo {
-    width: min(88vw, 48svh, 430px);
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 24px;
+    transform: none;
   }
 
   .mc-menu {
@@ -1485,16 +1490,26 @@ a {
   }
 
   .double {
-    gap: clamp(16px, 4vw, 24px);
+    width: 100%;
+    gap: 12px;
+    grid-area: auto;
+    grid-column: 2 / 4;
+    grid-row: 4;
+    justify-self: stretch;
+  }
+
+  .mc-menu .mc-button.lang {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 38px;
+    height: var(--btn-size);
   }
 
   .organizer-menu-button {
-    width: min(250px, calc(100% - 50px));
-    align-self: flex-start;
-    margin-top: 14px;
-    margin-left: max(50px, calc((100% - 300px) / 2 + 50px));
-    margin-right: 0;
-    margin-bottom: 0;
+    width: var(--mobile-action-width);
+    align-self: center;
+    margin: 14px auto 0;
   }
 
   .mc-button {
@@ -1505,6 +1520,24 @@ a {
   .double,
   .mc-button.lang {
     width: 100%;
+  }
+
+  .mc-menu .double .mc-button {
+    width: 0;
+    flex: 1 1 0;
+  }
+
+  .mc-menu .mc-button.lang {
+    width: 38px;
+  }
+
+  .mc-menu > .mc-button:nth-child(1),
+  .mc-menu > .mc-button:nth-child(2),
+  .mc-menu > .mc-button:nth-child(3) {
+    grid-area: auto;
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: var(--mobile-action-width);
   }
 
   .metrics-panel,
