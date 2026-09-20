@@ -704,6 +704,36 @@ a {
   text-transform: uppercase;
 }
 
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: var(--accent-2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+
+.instagram-link svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.instagram-link .instagram-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.instagram-link:hover,
+.instagram-link:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .organizing-team-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(110px, 1fr));
@@ -837,6 +867,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(180px, 1fr));
   gap: 18px;
+  perspective: 1200px;
 }
 
 .organizer-page-card {
@@ -848,9 +879,23 @@ a {
   background: rgba(255, 255, 240, 0.52);
   border: 1px solid rgba(112, 67, 34, 0.3);
   box-shadow: 0 8px 18px rgba(92, 55, 22, 0.12);
+  cursor: pointer;
+}
+
+.organizer-page-card:hover,
+.organizer-page-card:focus-visible,
+.organizer-page-card.is-selected {
+  outline: none;
+}
+
+.organizer-page-card:focus-visible {
+  outline: 2px solid #7b291f;
+  outline-offset: 4px;
 }
 
 .organizer-avatar {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -862,6 +907,17 @@ a {
   color: #7b291f;
   border-color: #8a5a35;
   font-size: 1.2rem;
+  perspective: 700px;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+}
+
+.organizer-page-card:hover .organizer-avatar,
+.organizer-page-card:focus-visible .organizer-avatar,
+.organizer-page-card.is-selected .organizer-avatar {
+  z-index: 3;
+  transform: translateZ(55px) rotateY(-8deg) rotateX(3deg) scale(1.12);
+  filter: drop-shadow(10px 12px 0 rgba(92, 55, 22, 0.18));
 }
 
 .organizer-avatar img {
@@ -1187,6 +1243,39 @@ a {
   color: #9a2920;
 }
 
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.theme-card {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 10px 6px;
+  text-align: center;
+  background: rgba(255, 255, 244, 0.55);
+  border: 1px solid rgba(112, 67, 34, 0.22);
+}
+
+.theme-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.theme-card strong {
+  color: #4b3425;
+  font-size: 0.42rem;
+  line-height: 1.35;
+}
+
 .schedule-timeline {
   position: relative;
   display: grid;
@@ -1214,6 +1303,29 @@ a {
   gap: 14px;
   align-items: start;
   min-height: 76px;
+  transform-style: preserve-3d;
+  animation: schedule-rise 0.65s ease both;
+  transition: transform 0.25s ease;
+}
+
+.schedule-event:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.schedule-event:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.schedule-event:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.schedule-event:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.schedule-event:hover {
+  transform: perspective(700px) rotateY(-2deg) translateX(2px);
 }
 
 .schedule-node {
@@ -1227,6 +1339,8 @@ a {
   background: #fffde9;
   color: #5a281c;
   font-size: 0.42rem;
+  transform-style: preserve-3d;
+  animation: schedule-node-pulse 2.8s ease-in-out infinite;
 }
 
 .schedule-event-content {
@@ -1286,6 +1400,7 @@ a {
 }
 
 .winner-row {
+  perspective: 700px;
   display: grid;
   grid-template-columns: 54px 1fr;
   align-items: center;
@@ -1293,6 +1408,22 @@ a {
   padding: 12px;
   border: 1px solid rgba(112, 67, 34, 0.25);
   background: rgba(255, 255, 240, 0.5);
+  animation: prize-rise 0.7s ease both;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.winner-row:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.winner-row:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.winner-row:hover {
+  transform: rotateX(2deg) rotateY(-3deg) translateY(-2px);
+  box-shadow: 8px 10px 0 rgba(74, 42, 24, 0.16);
 }
 
 .winner-medal {
@@ -1306,6 +1437,8 @@ a {
   color: #5a281c;
   font-size: 0.48rem;
   text-transform: uppercase;
+  transform-style: preserve-3d;
+  animation: medal-turn 4s ease-in-out infinite;
 }
 
 .winner-row div {
@@ -1393,6 +1526,38 @@ a {
   }
 }
 
+@keyframes prize-rise {
+  from {
+    opacity: 0;
+    transform: perspective(700px) rotateX(-8deg) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0) translateY(0);
+  }
+}
+
+@keyframes medal-turn {
+  0%, 100% { transform: rotateY(-12deg) rotateZ(-2deg); }
+  50% { transform: rotateY(12deg) rotateZ(2deg); }
+}
+
+@keyframes schedule-rise {
+  from {
+    opacity: 0;
+    transform: perspective(700px) rotateY(8deg) translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(700px) rotateY(0) translateX(0);
+  }
+}
+
+@keyframes schedule-node-pulse {
+  0%, 100% { transform: rotateY(-8deg) scale(1); }
+  50% { transform: rotateY(8deg) scale(1.04); }
+}
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -1401,6 +1566,30 @@ a {
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .winner-row,
+  .winner-medal,
+  .schedule-event,
+  .schedule-node,
+  .organizer-page-card {
+    animation: none;
+    transition: none;
+  }
+
+  .organizer-page-card:hover,
+  .organizer-page-card:focus-visible,
+  .organizer-page-card.is-selected {
+    transform: none;
+  }
+
+  .organizer-page-card:hover .organizer-avatar,
+  .organizer-page-card:focus-visible .organizer-avatar,
+  .organizer-page-card.is-selected .organizer-avatar {
+    transform: none;
+    filter: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1425,8 +1614,8 @@ a {
 
 @media (max-width: 640px) {
   :root {
-    --btn-size: 38px;
-    --mobile-action-width: 250px;
+    --btn-size: 36px;
+    --mobile-action-width: min(360px, calc(100vw - 70px));
   }
 
   .top-header {
@@ -1465,7 +1654,7 @@ a {
 
   .menu-wrap {
     transform: none;
-    width: min(100%, 300px);
+    width: min(100%, calc(var(--mobile-action-width) + 50px));
     margin-top: 18px;
   }
 
@@ -1477,8 +1666,8 @@ a {
   }
 
   .mc-menu {
-    width: min(100%, 300px);
-    grid-template-columns: 38px minmax(0, 1fr) minmax(0, 1fr);
+    width: min(100%, calc(var(--mobile-action-width) + 50px));
+    grid-template-columns: 32px minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: repeat(3, var(--btn-size)) var(--btn-size);
     grid-template-areas:
       '. first first'
@@ -1487,22 +1676,24 @@ a {
       'lang fourth fourth';
     gap: 12px;
     margin-bottom: 0;
+    transform: translateX(clamp(0px, calc((100vw - 360px) * 0.2), 21px));
   }
 
   .double {
-    width: 100%;
+    width: var(--mobile-action-width);
     gap: 12px;
     grid-area: auto;
     grid-column: 2 / 4;
     grid-row: 4;
     justify-self: stretch;
+    transform: translateX(-25px);
   }
 
   .mc-menu .mc-button.lang {
     position: absolute;
-    left: 0;
+    left: clamp(-25px, calc((360px - 100vw) * 0.24 - 6px), -6px);
     bottom: 0;
-    width: 38px;
+    width: 32px;
     height: var(--btn-size);
   }
 
@@ -1510,6 +1701,7 @@ a {
     width: var(--mobile-action-width);
     align-self: center;
     margin: 14px auto 0;
+    transform: translateX(clamp(0px, calc((100vw - 360px) * 0.2), 21px));
   }
 
   .mc-button {
@@ -1527,8 +1719,12 @@ a {
     flex: 1 1 0;
   }
 
+  .mc-menu .double {
+    width: var(--mobile-action-width);
+  }
+
   .mc-menu .mc-button.lang {
-    width: 38px;
+    width: 32px;
   }
 
   .mc-menu > .mc-button:nth-child(1),
@@ -1560,17 +1756,44 @@ a {
   }
 
   .site-footer {
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: stretch;
+    gap: 12px;
     padding: 14px 12px 18px;
     font-size: 0.45rem;
   }
 
   .footer-heading,
   .footer-bottom {
+    display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .footer-heading {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px 14px;
+  }
+
+  .instagram-link {
+    width: 42px;
+    height: 42px;
+  }
+
+  .instagram-link svg {
+    width: 26px;
+    height: 26px;
   }
 
   .footer-heading strong {

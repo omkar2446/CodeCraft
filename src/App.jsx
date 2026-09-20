@@ -7,6 +7,12 @@ import member3Photo from '../photo/member3.png';
 import member4Photo from '../photo/member4.png';
 import member5Photo from '../photo/member5.png';
 import member6Photo from '../photo/member6.png';
+import climateIcon from '../photo/Climate and Agriculture.png';
+import aiIcon from '../photo/Artificial Intelligence and Agentic AI.png';
+import medicalIcon from '../photo/Medical and Healthcare.png';
+import edTechIcon from '../photo/EdTech and Accessibility.png';
+import cloudIcon from '../photo/Cloud Computing.png';
+import openInnovationIcon from '../photo/Open Innovation.png';
 import buttonSound from '../sound/videoplayback.m4a';
 import backgroundMusic from '../sound/Minecraft.mp3.mpeg';
 
@@ -57,32 +63,32 @@ const journeyStages = [
 
 const domains = [
   {
-    icon: '🌾',
+    icon: climateIcon,
     title: 'Climate and Agriculture',
     text: 'Technology-driven solutions for climate resilience, agriculture, farming efficiency, and food systems.',
   },
   {
-    icon: '🤖',
+    icon: aiIcon,
     title: 'Artificial Intelligence and Agentic AI',
     text: 'Intelligent systems, autonomous agents, machine learning, and AI-powered innovation.',
   },
   {
-    icon: '🩺',
+    icon: medicalIcon,
     title: 'Medical and Healthcare',
     text: 'Technology solutions that improve healthcare access, diagnosis, treatment, and patient outcomes.',
   },
   {
-    icon: '📚',
+    icon: edTechIcon,
     title: 'EdTech and Accessibility',
     text: 'Inclusive learning tools and accessible experiences for students, educators, and communities.',
   },
   {
-    icon: '☁️',
+    icon: cloudIcon,
     title: 'Cloud Computing',
     text: 'Scalable cloud platforms, infrastructure, distributed systems, and connected services.',
   },
   {
-    icon: '💡',
+    icon: openInnovationIcon,
     title: 'Open Innovation',
     text: 'Original ideas that address meaningful challenges beyond the listed domain areas.',
   },
@@ -127,7 +133,8 @@ const organizingTeam = [
   { name: 'Kale Shrushti', role: 'Organizer', phone: '94225 10744', image: member6Photo },
 ];
 
-const registrationDeadline = new Date('2026-10-01T23:59:59');
+const registrationDeadline = new Date('2026-09-28T23:59:59');
+const instagramUrl = 'https://www.instagram.com/codecraft.prec/';
 
 function getCountdown() {
   const remaining = Math.max(0, registrationDeadline.getTime() - Date.now());
@@ -203,6 +210,7 @@ function App() {
   const [countdown, setCountdown] = useState(getCountdown);
   const [soundEnabled, setSoundEnabled] = useState(null);
   const [organizersOpen, setOrganizersOpen] = useState(false);
+  const [selectedOrganizer, setSelectedOrganizer] = useState(null);
   const musicRef = useRef(null);
 
   const playButtonSound = () => {
@@ -295,13 +303,24 @@ function App() {
             <div className="organizers-page-heading">
               <span className="eyebrow">CodeCraft committee</span>
               <h1 id="organizers-title">CodeCraft Committee</h1>
-              <a className="organizers-instagram" href="https://www.instagram.com/codecraft.prec/" target="_blank" rel="noreferrer">
+              <a className="organizers-instagram" href={instagramUrl} target="_blank" rel="noreferrer">
                 Follow us on Instagram
               </a>
             </div>
             <div className="organizers-page-grid">
               {organizingTeam.map((member) => (     
-                <article key={member.name} className="organizer-page-card">
+                <article
+                  key={member.name}
+                  className={`organizer-page-card${selectedOrganizer === member.name ? ' is-selected' : ''}`}
+                  tabIndex="0"
+                  onClick={() => setSelectedOrganizer(member.name)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setSelectedOrganizer(member.name);
+                    }
+                  }}
+                >
                   <div className="organizer-avatar">
                     <img src={member.image} alt={`${member.name} organizer`} />
                   </div>
@@ -389,7 +408,16 @@ function App() {
                 </div>
               </div>
             )}
-            {activePopup.title === 'Schedule' ? (
+            {activePopup.title === 'Themes' ? (
+              <div className="theme-grid" aria-label="CodeCraft themes">
+                {domains.map((domain) => (
+                  <div key={domain.title} className="theme-card">
+                    <img className="theme-icon" src={domain.icon} alt="" aria-hidden="true" />
+                    <strong>{domain.title}</strong>
+                  </div>
+                ))}
+              </div>
+            ) : activePopup.title === 'Schedule' ? (
               <div className="schedule-timeline" aria-label="CodeCraft schedule timeline">
                 {timeline.map((item, index) => (
                   <div key={item.phase} className="schedule-event">
@@ -436,8 +464,14 @@ function App() {
         <div className="footer-heading">
           <div>
             <strong>CodeCraft</strong>
-         
           </div>
+          <a className="instagram-link" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open CodeCraft Instagram page" title="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" className="instagram-dot" />
+            </svg>
+          </a>
         </div>
 
         <div className="footer-bottom">
