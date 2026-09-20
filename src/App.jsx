@@ -554,7 +554,7 @@ function App() {
             {activePopup.title === 'Themes' ? (
               <div className="theme-grid" aria-label="CodeCraft themes">
                 {domains.map((domain) => (
-                  <div key={domain.title} className="theme-card">
+                  <div key={domain.title} className="theme-card" title={domain.text}>
                     <img className="theme-icon" src={domain.icon} alt="" aria-hidden="true" />
                     <strong>{domain.title}</strong>
                   </div>
