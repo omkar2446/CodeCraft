@@ -125,6 +125,41 @@ a {
   opacity: 0.9;
 }
 
+.header-360-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 24px;
+  padding: 3px 8px;
+  background: #999 url('https://i.ibb.co/rb2TWXL/bgbtn.png') center/cover;
+  image-rendering: pixelated;
+  border: 2px solid #000;
+  box-shadow: inset -2px -3px #0006, inset 2px 2px #fff6;
+  color: #ddd !important;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 2px 2px #000a;
+  font-size: 0.44rem;
+  letter-spacing: 0.04em;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.header-360-link:hover,
+.header-360-link:focus-visible {
+  background-color: rgba(100, 100, 255, 0.45);
+  background-blend-mode: overlay;
+  color: #ffffa0 !important;
+  text-shadow: 2px 2px #202013cc;
+  transform: translateY(-1px);
+}
+
+.header-360-link span:first-child {
+  color: #ffffa0;
+}
+
 .content-wrapper {
   position: relative;
   z-index: 1;
@@ -2026,3 +2061,379 @@ a {
     gap: 7px;
   }
 }
+
+/* ==========================================
+   360° CAMPUS VIRTUAL TOUR MODAL STYLES
+   ========================================== */
+
+.header-360-link {
+  cursor: pointer;
+  font-family: inherit;
+}
+.view-360-popup {
+  width: min(1000px, 96vw) !important;
+  max-height: min(900px, calc(100vh - 20px)) !important;
+  padding: 56px 36px 32px 58px !important;
+}
+
+.view-360-subtitle {
+  margin-top: -6px;
+  margin-bottom: 16px;
+  color: #6c4b36;
+  font-size: 0.54rem;
+  line-height: 1.6;
+}
+
+.view-360-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.view-360-tab {
+  flex: 1;
+  padding: 11px 14px;
+  background: rgba(255, 255, 240, 0.55);
+  border: 2px solid #704322;
+  color: #4b3425;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-360-tab:hover {
+  background: rgba(139, 233, 253, 0.25);
+  color: #17130f;
+}
+
+.view-360-tab.active {
+  background: #704322;
+  color: #fffde9;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.hotspot-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.hotspot-chip {
+  padding: 7px 11px;
+  background: rgba(255, 255, 244, 0.7);
+  border: 1px solid rgba(112, 67, 34, 0.35);
+  color: #382015;
+  font-size: 0.44rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.hotspot-chip:hover {
+  background: rgba(139, 233, 253, 0.3);
+  transform: translateY(-1px);
+}
+
+.hotspot-chip.selected {
+  background: #9a2920;
+  color: #fffde9;
+  border-color: #7b291f;
+  box-shadow: 0 2px 6px rgba(154, 41, 32, 0.35);
+}
+
+.hotspot-info-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  background: rgba(255, 254, 240, 0.65);
+  border-left: 4px solid #7b291f;
+  border-top: 1px solid rgba(112, 67, 34, 0.18);
+  border-right: 1px solid rgba(112, 67, 34, 0.18);
+  border-bottom: 1px solid rgba(112, 67, 34, 0.18);
+}
+
+.hotspot-info-banner strong {
+  color: #271b13;
+  font-size: 0.58rem;
+}
+
+.hotspot-info-banner span {
+  color: #6c4b36;
+  font-size: 0.48rem;
+  line-height: 1.5;
+}
+
+.view-360-viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, 58vh, 580px);
+  margin-bottom: 20px;
+  background: #11161c;
+  border: 3px solid #704322;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.panorama-container,
+.satellite-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.panorama-hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.hud-badge {
+  padding: 5px 9px;
+  background: rgba(154, 41, 32, 0.88);
+  color: #fffde9;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.hud-compass {
+  padding: 5px 9px;
+  background: rgba(10, 15, 22, 0.78);
+  color: var(--accent);
+  font-size: 0.42rem;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.view-360-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 14px 20px;
+  background: #d8c89c;
+  border: 2px solid #5d351d;
+  box-shadow: inset -2px -4px rgba(0, 0, 0, 0.2), inset 2px 2px rgba(255, 255, 255, 0.3);
+  color: #382015;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.54rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.secondary-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.popup-action-360-btn {
+  margin-top: 14px;
+  width: 100%;
+  min-height: 44px;
+}
+
+@media (max-width: 640px) {
+  .view-360-popup {
+    padding: 50px 20px 24px 44px !important;
+  }
+  .view-360-viewport {
+    height: 280px;
+  }
+  .view-360-tabs {
+    flex-direction: column;
+  }
+  .view-360-actions {
+    flex-direction: column;
+  }
+  .secondary-cta,
+  .view-360-actions .primary-cta {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------
+   INTERACTIVE 360 PHOTO SPHERE PANORAMA VIEWER
+   ------------------------------------------ */
+
+.panorama-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  background: #080c10;
+}
+
+.panorama-sphere-bg {
+  width: 100%;
+  height: 100%;
+  background-size: 320% 200%;
+  background-repeat: repeat-x;
+  transition: transform 0.12s ease-out;
+  filter: contrast(1.05) saturate(1.1);
+}
+
+.panorama-controls-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.panorama-toolbar {
+  pointer-events: auto;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.panorama-toolbar button {
+  padding: 6px 10px;
+  background: rgba(10, 15, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fffde9;
+  font-size: 0.44rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.18s ease;
+}
+
+.panorama-toolbar button:hover,
+.panorama-toolbar button.active {
+  background: rgba(154, 41, 32, 0.9);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.panorama-instructions {
+  align-self: center;
+  margin-bottom: 8px;
+  padding: 6px 14px;
+  background: rgba(10, 15, 22, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--accent-2);
+  font-size: 0.45rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.panorama-hotspot-pin {
+  pointer-events: auto;
+  position: absolute;
+  z-index: 15;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(154, 41, 32, 0.94);
+  border: 2px solid var(--accent);
+  color: #fffde9;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px var(--accent);
+  animation: hotspot-pulse 2s infinite ease-in-out;
+  transition: transform 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
+}
+
+.panorama-hotspot-pin:hover {
+  transform: translate(-50%, -50%) scale(1.18);
+  filter: brightness(1.15);
+  background: #7b291f;
+  border-color: #fff;
+}
+
+.panorama-scene-switch-btn {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: rgba(10, 15, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fffde9;
+  font-size: 0.44rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.panorama-scene-switch-btn:hover {
+  background: rgba(154, 41, 32, 0.9);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.location-popup {
+  width: min(1000px, 96vw) !important;
+  max-height: min(900px, calc(100vh - 20px)) !important;
+}
+
+.location-satellite-wrap {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, 58vh, 580px);
+  margin: 12px 0 18px;
+  background: #080c10;
+  border: 3px solid #704322;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 6px 18px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.location-satellite-hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+
+
+
+

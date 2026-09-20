@@ -135,6 +135,120 @@ const organizingTeam = [
 
 const registrationDeadline = new Date('2026-09-28T23:59:59');
 const instagramUrl = 'https://www.instagram.com/codecraft.prec/';
+const campus360Url = 'https://maps.app.goo.gl/cWLYDnfqCQsVXn21A';
+const directPanoImage = 'https://lh3.googleusercontent.com/gpms-cs-s/AFP8RcOq8nWTNrrvp3aiorOuPRzgDM18Oddnkn8_CBS1jp1PRR-WWotZwZqasQinlZkp5OTW8itUomEQvabr71nBRVa5YGu40LyvmZCeVAZfeJ5lWQQ8RCjsguSBd7Y4IOnPo6SVYIsO=s2048';
+
+const panoScenes = {
+  gate: {
+    id: 'gate',
+    title: 'Main Gate 360°',
+    imageUrl: 'https://lh3.googleusercontent.com/gpms-cs-s/AFP8RcOq8nWTNrrvp3aiorOuPRzgDM18Oddnkn8_CBS1jp1PRR-WWotZwZqasQinlZkp5OTW8itUomEQvabr71nBRVa5YGu40LyvmZCeVAZfeJ5lWQQ8RCjsguSBd7Y4IOnPo6SVYIsO=s2048',
+    yaw: 38,
+    pitch: 0,
+    targetScene: 'college',
+    buttonLabel: 'College Side 360°',
+    hotspotYaw: 38,
+    hotspotPitch: -2,
+  },
+  college: {
+    id: 'college',
+    title: 'College Side Building 360°',
+    imageUrl: 'https://lh3.googleusercontent.com/gpms-cs-s/AFP8RcNcT_6OOESnwyBymhAp7uFc59BHykHUhf0Da3jElx0CuRMUuRmWNIh7murRhuqeSYAbsyoppK10j6mQx0YjCvEblnhsoTm6FlMYw0LskIbx3S4RAJGA1pQfPgQ433LECQMx5f4bFg=s2048',
+    yaw: 277,
+    pitch: 0,
+    targetScene: 'gate',
+    buttonLabel: 'Main Gate 360°',
+    hotspotYaw: 277,
+    hotspotPitch: -2,
+  },
+};
+
+function PanoramaViewer({ playButtonSound }) {
+  const [sceneId, setSceneId] = useState('gate');
+  const [isDragging, setIsDragging] = useState(false);
+  const scene = panoScenes[sceneId];
+  const [pitch, setPitch] = useState(scene.pitch);
+  const [yaw, setYaw] = useState(scene.yaw);
+  const [zoom, setZoom] = useState(1);
+  const [autoSpin, setAutoSpin] = useState(true);
+  const dragStartRef = useRef({ x: 0, y: 0, yaw: scene.yaw, pitch: scene.pitch });
+
+  const switchScene = (newSceneId) => {
+    if (playButtonSound) playButtonSound();
+    const nextScene = panoScenes[newSceneId];
+    setSceneId(newSceneId);
+    setYaw(nextScene.yaw);
+    setPitch(nextScene.pitch);
+    setZoom(1);
+  };
+
+  useEffect(() => {
+    if (!autoSpin || isDragging) return undefined;
+    const interval = setInterval(() => {
+      setYaw((prev) => (prev + 0.18) % 360);
+    }, 30);
+    return () => clearInterval(interval);
+  }, [autoSpin, isDragging]);
+
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    setAutoSpin(false);
+    dragStartRef.current = {
+      x: e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0),
+      y: e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0),
+      yaw,
+      pitch,
+    };
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+    const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+    const dx = clientX - dragStartRef.current.x;
+    const dy = clientY - dragStartRef.current.y;
+
+    setYaw((dragStartRef.current.yaw - dx * 0.28 + 360) % 360);
+    setPitch(Math.max(-40, Math.min(40, dragStartRef.current.pitch + dy * 0.2)));
+  };
+
+  const handlePointerUp = () => setIsDragging(false);
+
+  const bgX = (yaw / 360) * 100;
+  const bgY = 50 + (pitch / 80) * 40;
+
+  return (
+    <div
+      className="panorama-canvas-wrap"
+      onMouseDown={handlePointerDown}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerUp}
+      onMouseLeave={handlePointerUp}
+      onTouchStart={handlePointerDown}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
+      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+    >
+      <div
+        className="panorama-sphere-bg"
+        style={{
+          backgroundImage: `url(${scene.imageUrl})`,
+          backgroundPosition: `${bgX.toFixed(2)}% ${bgY.toFixed(2)}%`,
+          transform: `scale(${zoom})`,
+        }}
+      />
+
+      <button
+        type="button"
+        className="panorama-scene-switch-btn"
+        onClick={() => switchScene(scene.targetScene)}
+        title={`Switch to ${scene.buttonLabel}`}
+      >
+        📍 {scene.buttonLabel}
+      </button>
+    </div>
+  );
+}
 
 function getCountdown() {
   const remaining = Math.max(0, registrationDeadline.getTime() - Date.now());
@@ -161,7 +275,6 @@ const menuInformation = {
     text: 'CodeCraft moves through three rounds, taking teams from their first idea to a live 24-hour grand finale.',
     items: ['Round 1: 18th - 28th Sept, idea submission', 'Round 1 results: 30th Sept', 'Round 2: 1st - 9th Oct, prototype submission', 'Round 3: 16th - 17th Oct, grand finale'],
     action: 'View full schedule',
-    
   },
   Themes: {
     title: 'Themes',
@@ -174,24 +287,19 @@ const menuInformation = {
       'Cloud Computing',
       'Open Innovation',
     ],
-    
-   
   },
   Perks: {
     title: 'Perks',
     text: 'Participants get more than a competition: build your portfolio, meet experts, and take your idea further.',
     items: ['₹30,000 total prize pool', 'Mentorship opportunities', 'Industry networking', 'Recognition and certificates'],
-   
-    
   },
   FAQs: {
     title: 'FAQs',
-    text: 'Find quick answers about participation, submissions, judging, and the final challenge. ',
+    text: 'Find quick answers about participation, submissions, judging, and the final challenge.',
     items: [
-      'Who can participate? ',
-      'What is the team size? ',
-      'What technologies can we use? ',
-      
+      'Who can participate?',
+      'What is the team size?',
+      'What technologies can we use?',
     ],
     action: 'Read details',
     href: '#eligibility',
@@ -207,6 +315,7 @@ const menuInformation = {
 
 function App() {
   const [activePopup, setActivePopup] = useState(null);
+  const [is360Open, setIs360Open] = useState(false);
   const [countdown, setCountdown] = useState(getCountdown);
   const [soundEnabled, setSoundEnabled] = useState(null);
   const [organizersOpen, setOrganizersOpen] = useState(false);
@@ -223,7 +332,11 @@ function App() {
 
   useEffect(() => {
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setActivePopup(null);
+      if (event.key === 'Escape') {
+        setActivePopup(null);
+        setIs360Open(false);
+        setOrganizersOpen(false);
+      }
     };
 
     window.addEventListener('keydown', closeOnEscape);
@@ -290,7 +403,19 @@ function App() {
           <img className="header-icon" src={logoImage} alt="CodeCraft mini logo" />
         </div>
         <nav className="top-nav" aria-label="Top navigation">
-        
+          <button
+            type="button"
+            className="header-360-link"
+            onClick={() => {
+              playButtonSound();
+              setIs360Open(true);
+            }}
+            aria-label="Open campus 360 view"
+            title="Campus 360 view"
+          >
+            <span aria-hidden="true">360°</span>
+            <span>View</span>
+          </button>
         </nav>
       </header>
 
@@ -373,7 +498,7 @@ function App() {
       {activePopup && (
         <div className="popup-backdrop" role="presentation" onMouseDown={() => setActivePopup(null)}>
           <section
-            className="info-popup"
+            className={`info-popup${activePopup.title === 'Location' ? ' location-popup' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="popup-title"
@@ -386,16 +511,34 @@ function App() {
             <h2 id="popup-title">{activePopup.title}</h2>
             <p>{activePopup.text}</p>
             {activePopup.title === 'Location' && (
-              <div className="location-map" aria-label="Map showing the PREC Loni location">
-                <span className="map-road map-road-one" />
-                <span className="map-road map-road-two" />
-                <span className="map-road map-road-three" />
-                <span className="map-block map-block-one" />
-                <span className="map-block map-block-two" />
-                <span className="map-block map-block-three" />
-                <span className="map-pin" aria-hidden="true">●</span>
-                <span className="map-label">PREC LONI</span>
-              </div>
+              <>
+                <div className="location-satellite-wrap" aria-label="Satellite map of PREC Loni campus">
+                  <iframe
+                    title="PREC Loni Campus Satellite Map"
+                    src="https://maps.google.com/maps?q=19.5772763,74.4454501&t=k&z=17&ie=UTF8&iwloc=&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                  />
+                  <div className="location-satellite-hud">
+                    <span className="hud-badge">🛰️ SATELLITE VIEW</span>
+                    <span className="hud-compass">📍 PREC LONI</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="primary-cta popup-action popup-action-360-btn"
+                  onClick={() => {
+                    playButtonSound();
+                    setActivePopup(null);
+                    setIs360Open(true);
+                  }}
+                >
+                  🌐 View 360° Campus Tour
+                </button>
+              </>
             )}
             {activePopup.title === 'Registration' && (
               <div className="countdown-panel" aria-label="Registration countdown">
@@ -426,10 +569,9 @@ function App() {
                       <span>{item.phase}</span>
                       <strong>{item.range}</strong>
                       <small>{item.detail}</small>
-                      {item.phase.includes('RESULT') }
                     </div>
                   </div>
-                ))}*-0
+                ))}
               </div>
             ) : activePopup.title === 'Perks' ? (
               <div className="winner-list" aria-label="Hackathon winners and prizes">
@@ -451,11 +593,60 @@ function App() {
                 {activePopup.items.map((item) => <li key={item}>{item}</li>)}
               </ul>
             )}
-            {activePopup.action && (
+            {activePopup.action && activePopup.title !== 'Location' && (
               <a className="primary-cta popup-action" href={activePopup.href || '#'} target={activePopup.href?.startsWith('http') ? '_blank' : undefined} rel="noreferrer" onClick={() => { playButtonSound(); setActivePopup(null); }}>
                 {activePopup.action}
               </a>
             )}
+            {activePopup.action && activePopup.title === 'Location' && (
+              <a className="secondary-cta popup-action" href={activePopup.href || '#'} target="_blank" rel="noreferrer" onClick={() => { playButtonSound(); setActivePopup(null); }}>
+                {activePopup.action}
+              </a>
+            )}
+          </section>
+        </div>
+      )}
+
+      {is360Open && (
+        <div className="popup-backdrop view-360-backdrop" role="presentation" onMouseDown={() => setIs360Open(false)}>
+          <section
+            className="info-popup view-360-popup"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="view-360-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              className="popup-close"
+              type="button"
+              aria-label="Close 360 view popup"
+              onClick={() => {
+                playButtonSound();
+                setIs360Open(false);
+              }}
+            >
+              ×
+            </button>
+
+            <span className="eyebrow">PREC Loni Campus</span>
+            <h2 id="view-360-title">360° Interactive Campus View</h2>
+
+            <div className="view-360-viewport">
+              <PanoramaViewer playButtonSound={playButtonSound} />
+            </div>
+
+            <div className="view-360-actions">
+              <button
+                type="button"
+                className="primary-cta popup-action"
+                onClick={() => {
+                  playButtonSound();
+                  setIs360Open(false);
+                }}
+              >
+                Close 360° View
+              </button>
+            </div>
           </section>
         </div>
       )}
