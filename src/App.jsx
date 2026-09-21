@@ -125,12 +125,12 @@ const eligibilityCards = [
 ];
 
 const organizingTeam = [
-  { name: 'Tambe Omkar', role: 'Organizer', phone: '9405909432', image: omkarPhoto },
-  { name: 'Tambe Yash', role: 'Organizer', phone: '84689 88834', image: member2Photo },
-  { name: 'Pandharkar Aniruddha', role: 'Organizer', phone: '87999 48910', image: member3Photo },
-  { name: 'Darekar Sainath', role: 'Organizer', phone: '93072 92907', image: member4Photo },
-  { name: 'Wabale Shreya', role: 'Organizer', phone: '84219 05078', image: member5Photo },
-  { name: 'Kale Shrushti', role: 'Organizer', phone: '94225 10744', image: member6Photo },
+  { name: 'Tambe Omkar', role: 'Coordinator', phone: '9405909432', image: omkarPhoto },
+  { name: 'Tambe Yash', role: 'Coordinator', phone: '84689 88834', image: member2Photo },
+  { name: 'Pandharkar Aniruddha', role: 'Coordinator', phone: '87999 48910', image: member3Photo },
+  { name: 'Darekar Sainath', role: 'Coordinator', phone: '93072 92907', image: member4Photo },
+  { name: 'Wabale Shreya', role: 'Coordinator', phone: '84219 05078', image: member5Photo },
+  { name: 'Kale Shrushti', role: 'Coordinator', phone: '94225 10744', image: member6Photo },
 ];
 
 const registrationDeadline = new Date('2026-09-28T23:59:59');
