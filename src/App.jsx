@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import heroVideo from '../video/Minecraft Autumn Mountains _ Cozy 4K Live Wallpaper 🍂🏔️.mp4';
 import logoImage from '../photo/CODECRAFT LOGO.png';
+import collegeLogo from '../photo/COLLEGE.jpeg';
+import fibLogo from '../photo/fib.svg';
+import lockChainImage from '../photo/minecraft-lock-cross.png';
+import sponsorLogo from '../photo/sponcer.png';
 import omkarPhoto from '../photo/omkar.jpg';
 import member2Photo from '../photo/member2.jpg';
 import member3Photo from '../photo/member3.png';
@@ -110,12 +114,12 @@ const resourceCards = [
 ];
 
 const timeline = [
-  { phase: 'ROUND 1', range: '18 to 28 Sept', detail: 'Idea Submission' },
-  { phase: 'ROUND 1 RESULT', range: '30 Sept', detail: 'Shortlisted Teams Announced' },
-  { phase: 'ROUND 2', range: '1 to 9 Oct', detail: 'Prototype Submission' },
-  { phase: 'ROUND 2 RESULT', range: '12 Oct', detail: 'Finalists Announced' },
-  { phase: 'ROUND 3', range: '16 and 17 Oct', detail: '24-Hour Grand Finale' },
-  { phase: 'ROUND 3 RESULT', range: '17 Oct', detail: 'Winners Announced' },
+  { phase: 'ROUND 1', range: '18 to 28 Sept', detail: 'Idea Submission', status: 'completed' },
+  { phase: 'ROUND 1 RESULT', range: '30 Sept', detail: 'Shortlisted Teams Announced', status: 'completed' },
+  { phase: 'ROUND 2', range: '1 to 9 Oct', detail: 'Prototype Submission', status: 'active' },
+  { phase: 'ROUND 2 RESULT', range: '12 Oct', detail: 'Finalists Announced', status: 'upcoming' },
+  { phase: 'ROUND 3', range: '16 and 17 Oct', detail: '24-Hour Grand Finale', status: 'upcoming' },
+  { phase: 'ROUND 3 RESULT', range: '17 Oct', detail: 'Winners Announced', status: 'upcoming' },
 ];
 
 const eligibilityCards = [
@@ -131,6 +135,43 @@ const organizingTeam = [
   { name: 'Darekar Sainath', role: 'Coordinator', phone: '93072 92907', image: member4Photo },
   { name: 'Wabale Shreya', role: 'Coordinator', phone: '84219 05078', image: member5Photo },
   { name: 'Kale Shrushti', role: 'Coordinator', phone: '94225 10744', image: member6Photo },
+];
+
+const judgePanel = [
+  {
+    name: 'Dr. Abhijit Joshi',
+    role: 'AI & Product Mentor',
+    expertise: 'AI systems, startup strategy, product validation',
+    company: 'Industry / Academia',
+  },
+  {
+    name: 'Priya Nair',
+    role: 'Cloud Solutions Lead',
+    expertise: 'Scalable cloud architecture and system design',
+    company: 'CloudX Labs',
+  },
+  {
+    name: 'Rahul Deshmukh',
+    role: 'Healthcare Innovation Expert',
+    expertise: 'Health-tech prototyping and real-world impact',
+    company: 'MedNova',
+  },
+  {
+    name: 'Neha Kulkarni',
+    role: 'EdTech & Accessibility Judge',
+    expertise: 'Inclusive design and digital learning experiences',
+    company: 'EduBridge Foundation',
+  },
+];
+
+const sponsors = [
+  {
+    name: 'P99Soft',
+    tier: 'Official Sponsor',
+    description: 'Thank you for supporting CodeCraft and student innovation.',
+    image: sponsorLogo,
+    link: 'https://p99soft.com/',
+  },
 ];
 
 const registrationDeadline = new Date('2026-09-28T23:59:59');
@@ -319,7 +360,9 @@ function App() {
   const [countdown, setCountdown] = useState(getCountdown);
   const [soundEnabled, setSoundEnabled] = useState(null);
   const [organizersOpen, setOrganizersOpen] = useState(false);
+  const [activePage, setActivePage] = useState(null);
   const [selectedOrganizer, setSelectedOrganizer] = useState(null);
+  const [revealedJudgeCount, setRevealedJudgeCount] = useState(0);
   const musicRef = useRef(null);
 
   const playButtonSound = () => {
@@ -336,6 +379,7 @@ function App() {
         setActivePopup(null);
         setIs360Open(false);
         setOrganizersOpen(false);
+        setActivePage(null);
       }
     };
 
@@ -379,7 +423,7 @@ function App() {
   };
 
   return (
-    <div className="page-shell">
+    <div className={`page-shell${activePage || organizersOpen ? ' page-open' : ''}`}>
       <video className="video-background" src={heroVideo} autoPlay loop muted playsInline />
       <audio ref={musicRef} src={backgroundMusic} loop preload="auto" aria-label="Minecraft background music" />
       <div className="video-overlay" />
@@ -400,21 +444,52 @@ function App() {
 
       <header className="top-header">
         <div className="brand-group">
-          <img className="header-icon" src={logoImage} alt="CodeCraft mini logo" />
+          <a
+            className="college-logo-badge"
+            href="https://pravaraengg.org.in/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit Pravara Engineering College website"
+            title="Visit Pravara Engineering College"
+          >
+            <img className="college-header-icon" src={collegeLogo} alt="College logo" />
+          </a>
+          <a
+            className="fib-logo-badge"
+            href="https://code-craft-dvhn.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit CodeCraft website"
+            title="Visit CodeCraft website"
+          >
+            <img className="fib-header-icon" src={fibLogo} alt="FIB logo" />
+          </a>
         </div>
         <nav className="top-nav" aria-label="Top navigation">
           <button
             type="button"
-            className="header-360-link"
+            className="header-page-link"
             onClick={() => {
               playButtonSound();
-              setIs360Open(true);
+              setRevealedJudgeCount(0);
+              setActivePage('judges');
             }}
-            aria-label="Open campus 360 view"
-            title="Campus 360 view"
+            aria-label="Open judge panel"
+            title="Judge Panel"
           >
-            <span aria-hidden="true">360°</span>
-            <span>View</span>
+            Judge Panel
+          </button>
+          <button
+            type="button"
+            className="header-page-link"
+            onClick={() => {
+              playButtonSound();
+              setActivePage('sponsors');
+            }}
+            aria-label="Open sponsors page"
+            title="Sponsors"
+          >
+            Sponsors
           </button>
         </nav>
       </header>
@@ -433,7 +508,7 @@ function App() {
               </a>
             </div>
             <div className="organizers-page-grid">
-              {organizingTeam.map((member) => (     
+              {organizingTeam.map((member) => (
                 <article
                   key={member.name}
                   className={`organizer-page-card${selectedOrganizer === member.name ? ' is-selected' : ''}`}
@@ -455,6 +530,89 @@ function App() {
                   <a className={member.phone.startsWith('[') ? 'placeholder-contact' : ''} href={member.phone.startsWith('[') ? undefined : `tel:${member.phone}`}>
                     {member.phone}
                   </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : activePage === 'judges' ? (
+          <section className="panel-page judges-page" aria-labelledby="judge-panel-title">
+            <button className="organizers-back popup-close" type="button" aria-label="Close judge panel page" title="Back to home" onClick={() => { playButtonSound(); setActivePage(null); }}>
+              ×
+            </button>
+            <div className="organizers-page-heading">
+              <span className="eyebrow">CodeCraft Jury</span>
+              <h1 id="judge-panel-title">Our Judge Panel</h1>
+              <p>Our jury brings together industry leaders, academic mentors, and innovation specialists who evaluate ideas for impact, feasibility, and real-world adoption.</p>
+            </div>
+            <button
+              className="judge-reveal-button"
+              type="button"
+              disabled={revealedJudgeCount >= judgePanel.length}
+              onClick={() => {
+                playButtonSound();
+                setRevealedJudgeCount((current) => Math.min(current + 1, judgePanel.length));
+              }}
+            >
+              {revealedJudgeCount === 0
+                ? 'Reveal Jury'
+                : revealedJudgeCount < judgePanel.length
+                  ? `Reveal Next Judge (${revealedJudgeCount + 1}/${judgePanel.length})`
+                  : 'Jury Revealed'}
+            </button>
+            <div className="organizers-page-grid">
+              {judgePanel.map((judge, index) => {
+                const isRevealed = index < revealedJudgeCount;
+
+                return (
+                  <article
+                    key={judge.name}
+                    className={`organizer-page-card judge-card${isRevealed ? ' is-revealed' : ' is-sealed'}`}
+                    aria-label={isRevealed ? `${judge.name}, ${judge.role}` : `Judge ${index + 1}, unrevealed`}
+                  >
+                    <div className="organizer-avatar judge-avatar">{isRevealed ? '★' : '?'}</div>
+                    {isRevealed ? (
+                      <>
+                        <h2>{judge.name}</h2>
+                        <span>{judge.role}</span>
+                        <small>{judge.company}</small>
+                        <p>{judge.expertise}</p>
+                      </>
+                    ) : (
+                      <>
+                        <span className="judge-seal-label">CodeCraft Jury</span>
+                        <h2>Judge {String(index + 1).padStart(2, '0')}</h2>
+                        <p>Identity sealed</p>
+                      </>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ) : activePage === 'sponsors' ? (
+          <section className="panel-page sponsors-page" aria-labelledby="sponsors-title">
+            <button className="organizers-back popup-close" type="button" aria-label="Close sponsors page" title="Back to home" onClick={() => { playButtonSound(); setActivePage(null); }}>
+              ×
+            </button>
+            <div className="organizers-page-heading">
+              <span className="eyebrow">CodeCraft Partners</span>
+              <h1 id="sponsors-title">Our Sponsors</h1>
+              <p>We’re grateful to the partner supporting this year’s CodeCraft.</p>
+            </div>
+            <div className="sponsor-grid sponsor-page-grid">
+              {sponsors.map((sponsor) => (
+                <article key={sponsor.name} className="sponsor-card sponsor-feature-card">
+                  <div className="sponsor-logo-wrap">
+                    <img className="sponsor-logo" src={sponsor.image} alt={`${sponsor.name} logo`} />
+                  </div>
+                  <div className="sponsor-feature-copy">
+                  <span className="sponsor-tier">{sponsor.tier}</span>
+                  <h3>{sponsor.name}</h3>
+                  <p>{sponsor.description}</p>
+                    <a className="sponsor-official-link" href={sponsor.link} target="_blank" rel="noreferrer">
+                      View Official Website <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
                 </article>
               ))}
             </div>
@@ -493,17 +651,21 @@ function App() {
           </section>
         )}
 
+
       </main>
 
       {activePopup && (
         <div className="popup-backdrop" role="presentation" onMouseDown={() => setActivePopup(null)}>
           <section
-            className={`info-popup${activePopup.title === 'Location' ? ' location-popup' : ''}`}
+            className={`info-popup${activePopup.title === 'Location' ? ' location-popup' : ''}${activePopup.title === 'Registration' ? ' registration-popup' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="popup-title"
             onMouseDown={(event) => event.stopPropagation()}
           >
+            {activePopup.title === 'Registration' && (
+              <img className="registration-chain-art" src={lockChainImage} alt="" aria-hidden="true" />
+            )}
             <button className="popup-close" type="button" aria-label="Close information popup" onClick={() => { playButtonSound(); setActivePopup(null); }}>
               ×
             </button>
@@ -541,13 +703,15 @@ function App() {
               </>
             )}
             {activePopup.title === 'Registration' && (
-              <div className="countdown-panel" aria-label="Registration countdown">
-                <span>Registration closes in</span>
-                <div className="countdown-grid">
-                  <div><strong>{String(countdown.days).padStart(2, '0')}</strong><small>Days</small></div>
-                  <div><strong>{String(countdown.hours).padStart(2, '0')}</strong><small>Hours</small></div>
-                  <div><strong>{String(countdown.minutes).padStart(2, '0')}</strong><small>Minutes</small></div>
-                  <div><strong>{String(countdown.seconds).padStart(2, '0')}</strong><small>Seconds</small></div>
+              <div className="countdown-shell" aria-label="Registration countdown">
+                <div className="countdown-panel">
+                  <span>Registration closes in</span>
+                  <div className="countdown-grid">
+                    <div><strong>{String(countdown.days).padStart(2, '0')}</strong><small>Days</small></div>
+                    <div><strong>{String(countdown.hours).padStart(2, '0')}</strong><small>Hours</small></div>
+                    <div><strong>{String(countdown.minutes).padStart(2, '0')}</strong><small>Minutes</small></div>
+                    <div><strong>{String(countdown.seconds).padStart(2, '0')}</strong><small>Seconds</small></div>
+                  </div>
                 </div>
               </div>
             )}
@@ -562,16 +726,19 @@ function App() {
               </div>
             ) : activePopup.title === 'Schedule' ? (
               <div className="schedule-timeline" aria-label="CodeCraft schedule timeline">
-                {timeline.map((item, index) => (
-                  <div key={item.phase} className="schedule-event">
-                    <div className="schedule-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
-                    <div className="schedule-event-content">
-                      <span>{item.phase}</span>
-                      <strong>{item.range}</strong>
-                      <small>{item.detail}</small>
+                {timeline.map((item, index) => {
+                  const statusLabel = item.status === 'completed' ? '🔒' : item.status === 'active' ? '🔓' : '○';
+                  return (
+                    <div key={item.phase} className={`schedule-event schedule-event-${item.status || 'upcoming'}`}>
+                      <div className="schedule-node" aria-hidden="true">{statusLabel}</div>
+                      <div className="schedule-event-content">
+                        <span>{item.phase}</span>
+                        <strong>{item.range}</strong>
+                        <small>{item.detail}</small>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : activePopup.title === 'Perks' ? (
               <div className="winner-list" aria-label="Hackathon winners and prizes">
