@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://code-craft-dvhn.vercel.app/sitemap.xml

@@ -619,6 +619,7 @@ function App() {
           </section>
         ) : (
           <section className="hero-section" id="home">
+            <h1 className="visually-hidden">CODECRAFT 2026 Student Hackathon at Pravara Rural Engineering College, Loni</h1>
             <div className="menu-wrap">
               <img className="brand-logo" src={logoImage} alt="CodeCraft logo" />
 
